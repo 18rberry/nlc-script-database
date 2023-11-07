@@ -1,0 +1,248 @@
+{% extends "v2searchtemplate.html" %}
+
+{% block additional_head %}
+<script type="text/javascript">
+  let all_checked = false;
+  let checkboxes = null;
+  function selectAll() {
+    if (!checkboxes) {
+      checkboxes = document.querySelectorAll('input[type=checkbox][name=chk_result]')
+    }
+
+    for (let i = 0; i < checkboxes.length; i++) {
+      checkboxes[i].checked = !all_checked;
+    }
+
+    all_checked = !all_checked
+  }
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+  <div class="row justify-content-center">
+    <div class="col-12">
+      <h1 class="text-center">Norman Lear Center Script Database</h1>
+    </div>
+  </div>
+</div>
+<form name="form" action="" method="POST">
+  <div class="container mb-5 mx-auto">
+    {% csrf_token %}
+    <div class="row mb-2">
+      <div class="col-sm-8 mx-auto">
+        {{ errors }}
+        <div class="p-1 bg-light rounded rounded-pill shadow-sm">
+          <div class="input-group">
+            {{ form.search_terms }}
+          </div>
+        </div>
+        <span id="textareaHelpBlock" class="form-text text-muted m-2"><a href="/search/help" target="_blank">Need
+            help?</a></span>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row collapse" id="collapseExample">
+    <div class="col-md-3 col-sm-12 m-auto">
+      <div class="row">
+        <div class="col-sm-10 mb-2">
+          <span>Script date range:</span>
+        </div>
+      </div>
+      <div class="row mb-2">
+        <div class="col-sm-4">
+          <span>From:</span>
+        </div>
+        <div class="col-sm-6">
+          {{ form.year_filter_low.errors }}
+          {{ form.year_filter_low }}
+        </div>
+      </div>
+      <div class="row m-auto">
+        <div class="col-sm-4">
+          <span>To:</span>
+        </div>
+        <div class="col-sm-6">
+          {{ form.year_filter_high }}
+          {{ form.year_filter_high.errors }}
+        </div>
+      </div>
+
+    </div>
+    <div class="col-md-3 col-sm-12 mx-auto justify-content-center">
+      <div class="form-check">
+        <div class="row">
+          <div class="col-sm-12">
+            <label for="{{form.script_type.id_for_label}}">Script type:</label>
+          </div>
+        </div>
+        <div class="row form-inline m-auto">
+
+          <div class="col-sm-8 m-auto" id="id_script_type">
+            {{ form.script_type.errors }}
+            {{ form.script_type }}
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-md-3 col-sm-12 m-auto">
+      <div class="row">
+        <div class="col-sm-12 m-auto">
+          <label for="{{form.genre_filter.id_for_label}}">Genre type:</label>
+        </div>
+      </div>
+      <div class="row">
+        {{ form.genre_filter.errors }}
+        <div class="col-sm-8 m-auto">
+          <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">
+            Select Genre
+          </button>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-sm-12 m-auto">
+      <div class="row m-auto">
+        <div class="col-sm-6">
+          <label for="{{form.genre_filter.id_for_label}}">Show only US titles:</label>
+          {{ form.us_only_filter }}
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="col-sm-10 mx-auto">
+      <button type="submit" name="search" class="btn btn-danger m-4">Search</button>
+      <a data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
+        aria-controls="collapseExample" class="advanced btn btn-primary m-4">
+        Advance Search With Filters
+      </a>
+
+      <button type="submit" name="export" class="btn btn-warning m-4">Export</button>
+    </div>
+  </div>
+
+  {% if results and results.search_results %}
+  <div id="script-search-results">
+    <span>{{ results.snippet_hits }} results in {{ results.script_hits }} scripts in {{ elapsed }} seconds</span>
+    <table id="results_table" class=" table table-hover table-bordered table-sm">
+      <thead class="table-primary">
+        <tr>
+          <th><input type="checkbox" name="chk_selectall" onclick="selectAll();" /></th>
+          <th>Type</th>
+          <th>Title</th>
+          <th>Release Date</th>
+          <th>Season</th>
+          <th>Episode</th>
+          <th>Genre</th>
+          <!-- <th>Category</th> -->
+          <th>Country</th>
+          <!-- <th>Text</th> -->
+          <th>More</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for search_result in results.search_results %}
+        <tr>
+          <td><input type="checkbox" name="chk_result" value="{{search_result.id}}" /></td>
+          <td>{% if search_result.script_type == 'T' %} TV {% else %} Movie {% endif %}</td>
+          <td><a href="/v2/search/{{search_result.id}}/" target="_blank">{{ search_result.title }}</a></td>
+          <td>{{ search_result.release_date }}</td>
+          <td>{% if search_result.script_type == 'T' %} {{ search_result.season }} {% endif %}</td>
+          <td>{% if search_result.script_type == 'T' %} {{ search_result.episode }} {% endif %}</td>
+          <td>
+            <table class="table table-borderless internal-table">
+              {% for genre_item in search_result.genre_text %}
+              <tr>
+                <td>{{ genre_item }}</td>
+              </tr>
+              {% endfor %}
+
+            </table>
+          </td>
+          <!-- <td>{{ search_result.category }}</td> -->
+          <td>{{ search_result.country }}</td>
+          <td>
+            <a id="more_1" class="more" role="button" data-toggle="collapse" href="#additional_row{{search_result.id}}"
+              aria-expanded="false" aria-controls="collapseExample">More</a>
+          </td>
+        </tr>
+        <tr class="collapse additional-row" id="additional_row{{search_result.id}}">
+          {% if search_result.network %}
+          <td colspan="6">
+            {% else %}
+          <td colspan="9">
+            {% endif %}
+            <h3>Matches found:</h3>
+            <div class="collapse additional-row" id="additional_row{{search_result.id}}">
+              <table class="table table-borderless table-sm internal-table">
+                {% autoescape off %}
+                {% for snippet in search_result.headline %}
+                <tr>
+                  <td class="snippets">
+                    {{ snippet }}
+                  </td>
+                </tr>
+                {% endfor %}
+                {% endautoescape %}
+              </table>
+            </div>
+          </td>
+          {% if search_result.network %}
+          <td colspan="3">
+            <h3>Watch providers:</h3>
+            <table class="table table-borderless table-sm internal-table">
+              {% for watch_provider in search_result.network %}
+              <tr>
+                <td>
+                  {{ watch_provider}}
+                </td>
+              </tr>
+              {% endfor %}
+            </table>
+          </td>
+          {% endif %}
+        </tr>
+      </tbody>
+      {% endfor %}
+    </table>
+  </div>
+  {% endif %}
+
+  </div>
+  <!-- Genre Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Select Genre</h5>
+
+        </div>
+        <div class="modal-body">
+          {{ form.genre_filter }}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Save Selection</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+{% if results and results.search_results %}
+<footer>
+  <div>
+    <div>
+      Watch provider data from <a href="https://www.justwatch.com/"> JustWatch </a>
+    </div>
+  </div>
+</footer>
+{% endif %}
+
+{% endblock %}

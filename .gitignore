@@ -9,3 +9,4 @@ pyvenv.cfg
 
 # Logging
 **.log
+web/script_search/script_search/settings.py

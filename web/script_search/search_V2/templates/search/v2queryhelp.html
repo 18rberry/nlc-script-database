@@ -1,0 +1,32 @@
+{% extends "v2searchtemplate.html" %}
+
+{% block content %}
+
+{% load static %}
+<h1>Search Query Help</h1>
+<div>
+  The Norman Lear Center Script Database site allows for the use of standard boolean logic such as AND (&), OR (|), and
+  NOT (!).
+  <br />
+  <br />
+  To find scripts containing variations of the word "donation" but not variations of "politics" nor "organ":
+  <br />
+  donation & !politics & !organ
+  <br />
+  <br />
+  Parentheses can be used to group items together. E.g., if one word is required and one other word within a group is
+  required:
+  <br />
+  drive & (blood | food)
+  <br />
+  <br />
+  A special operator "<->" creates searches for words appearing next to each other:
+    <br />
+    blood<->drive | food<->drive
+        <br />
+        <br />
+        The "appearing next to" operator can be slightly modified to find words n spots from each other:
+        <br />
+        habitat<2>humanity | make<3>foundation
+</div>
+{% endblock %}

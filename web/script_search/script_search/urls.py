@@ -22,4 +22,6 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('search/', include('search.urls')),
     path('', include('search.urls')),
+    path('v2', include('search_V2.urls')),
+    path('v2/search/', include('search_V2.urls')),
 ]

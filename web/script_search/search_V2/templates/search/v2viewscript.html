@@ -1,0 +1,87 @@
+{% extends "v2searchtemplate.html" %}
+
+{% block content %}
+<div>
+    <div class="row">
+        <div class="mx-auto my-2">
+            <h1>{{ script }}</h1>
+        </div>
+    </div>
+    <div class="container-fluid">
+
+        <div class="container">
+            <div class="row mb-2">
+                {% if script.country is not '' %}
+                <div class="col-sm-12 col-md-4 m-auto">
+                    <div class="row justify-content-center">
+                        <h5> Country: </h5>
+                    </div>
+                    <div class="row justify-content-center">
+                        {{ script.country }}
+                    </div>
+                </div>
+                {% endif %}
+                {% if script.category is not '' %}
+                <div class="col-sm-12 col-md-4 m-auto">
+                    <div class="row justify-content-center">
+                        <h5> Type: </h5>
+                    </div>
+                    <div class="row justify-content-center">
+                        {{ script.category }}
+                    </div>
+                </div>
+                {% endif %}
+                <div class="col-sm-12 col-md-4 m-auto">
+                    <div class="row justify-content-center">
+                        <h5> Release Date: </h5>
+                    </div>
+                    <div class="row justify-content-center">
+                        {% if script.release_date %}
+                        {{ script.release_date }}
+                        {% else %}
+                        {{ 'Not available' }}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-sm-12 col-md-4 m-auto">
+                    <div class="row justify-content-center">
+                        <h5> Genre: </h5>
+                    </div>
+                    <div class="row justify-content-center">
+                        {{ script.genre_text }}
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-4 m-auto">
+                    <div class="row justify-content-center">
+                        <h5> Season: </h5>
+                    </div>
+                    <div class="row justify-content-center">
+                        {{ script.season }}
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-4 m-auto">
+                    <div class="row justify-content-center">
+                        <h5> Episode: </h5>
+                    </div>
+                    <div class="row justify-content-center">
+                        {{ script.episode }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-sm-12">
+            <h5>Script:</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            {{ script.script_content}}
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
