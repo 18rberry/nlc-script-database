@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.postgres.search import SearchVectorField
 from django.contrib.postgres.indexes import GinIndex, BTreeIndex
+from django.contrib.postgres.fields import JSONField
 
 
 class ScriptMigration(models.Model):
@@ -11,11 +12,11 @@ class ScriptMigration(models.Model):
     episode_text = models.TextField(null=True)
     episode_title = models.TextField(null=True)
     script_content = models.TextField()
-    genre_text = models.JSONField(null=True)
+    genre_text = JSONField(null=True)
     category = models.TextField(null=True)
     country = models.TextField(null=True)
     release_date = models.DateField(null=True)
-    network = models.JSONField(null=True)
+    network = JSONField(null=True)
 
     def __str__(self):
         return self.title
@@ -29,12 +30,12 @@ class Script(models.Model):
     episode = models.TextField(null=True)
     episode_title = models.TextField(null=True)
     script_content = models.TextField()
-    genre_text = models.JSONField(null=True)
+    genre_text = JSONField(null=True)
     category = models.TextField(null=True)
     country = models.TextField(null=True)
     release_date = models.DateField(null=True)
     search_content = SearchVectorField(null=True)
-    network = models.JSONField(null=True)
+    network = JSONField(null=True)
 
     def __str__(self):
         return format_script_title(self)
