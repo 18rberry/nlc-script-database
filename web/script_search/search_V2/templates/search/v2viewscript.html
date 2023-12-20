@@ -50,9 +50,12 @@
                         <h5> Genre: </h5>
                     </div>
                     <div class="row justify-content-center">
-                        {{ script.genre_text }}
+                        {% for genre_item in script.genre_text %}
+                        {{ genre_item }}<br />
+                        {% endfor %}
                     </div>
                 </div>
+                {% if script.season > 0 %}
                 <div class="col-sm-12 col-md-4 m-auto">
                     <div class="row justify-content-center">
                         <h5> Season: </h5>
@@ -61,6 +64,8 @@
                         {{ script.season }}
                     </div>
                 </div>
+                {% endif %}
+                {% if script.episode > 0 %}
                 <div class="col-sm-12 col-md-4 m-auto">
                     <div class="row justify-content-center">
                         <h5> Episode: </h5>
@@ -69,6 +74,7 @@
                         {{ script.episode }}
                     </div>
                 </div>
+                {% endif %}
             </div>
         </div>
     </div>
