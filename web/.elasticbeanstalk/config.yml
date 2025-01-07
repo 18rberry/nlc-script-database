@@ -1,6 +1,6 @@
 branch-defaults:
   default:
-    environment: usc-script-database-web-prod
+    environment: usc-script-database-web-dev-v2
 environment-defaults:
   usc-script-database-web-prod:
     branch: null
@@ -14,6 +14,6 @@ global:
   instance_profile: null
   platform_name: null
   platform_version: null
-  profile: eb-cli-prod
+  profile: eb-cli
   sc: null
   workspace_type: Application
