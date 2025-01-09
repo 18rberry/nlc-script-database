@@ -1,0 +1,132 @@
+body {
+  font-family:"Open Sans", Arial, Helvetica, sans-serif;
+}
+
+header {
+  margin:-8px;
+}
+
+header > div {
+  background-color:#900;
+  height:80px;
+}
+
+header > div > div {
+  margin:0 auto;
+  max-width:1000px;
+}
+
+header .usc-logo {
+  float:left;
+}
+
+header .logout-action {
+  margin:0.6rem 0;
+  float:right
+}
+
+.logo-usc-responsive {
+  margin:0.6rem 0;
+  max-width:20rem;
+  max-height:3.5rem;
+  position:absolute;
+}
+
+.logo-usc-responsive .text-usc-acronym {
+  opacity:1;
+}
+
+.logo-usc-responsive .text-usc-acronym-large {
+  opacity:0;
+}
+
+.logo-usc-responsive .text-usc-acronym, .logo-usc-responsive .text-usc-acronym-large {
+  fill:#fc0;
+}
+
+.logo-usc-responsive .text-usc-full {
+  opacity:1;
+  fill:#fff;
+}
+
+.logo-usc-responsive .icon-shield {
+  fill:#fff;
+}
+
+.logout-action {
+  color:#fff;
+}
+
+.logout-action a {
+  color:#fff;
+}
+
+.error-message {
+  color:red;
+}
+
+#login_form {
+  width:250px;
+  margin:0 auto;
+}
+
+#password_form {
+  width:100%;
+  margin:0 auto;
+}
+
+#password_form table {
+  margin:0 auto;
+}
+
+#main_content {
+  margin:0 auto;
+  max-width:1000px;
+  text-align:center;
+  margin-top:15px;
+}
+
+#script-search-form {
+  width:100%;
+}
+
+#id_script_type {
+  list-style-type:None;
+}
+
+#results_table {
+  border:1px black solid;
+  width:100%;
+  border-collapse:collapse;
+  text-align:left
+}
+
+#results_table tbody tr, #results_table tbody tr th, #results_table tbody tr td {
+  border:1px black solid;
+  vertical-align:top;
+  padding:5px
+}
+
+#results_table table tbody tr td {
+  border:none;
+  border-collapse:collapse;
+  width:100%;
+}
+
+.script-years {
+  margin-top:15px;
+}
+
+.script-type {
+  width:120px;
+  margin:15px auto 0px auto;
+}
+
+.script-type #script-type-radio ul {
+  text-align:left;
+  margin:0px;
+}
+
+#script-search-actions {
+  margin-top:15px;
+}

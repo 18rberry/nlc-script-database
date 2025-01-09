@@ -25,7 +25,7 @@ SECRET_KEY = '8hTf0nuJBPmVcNglI4IWdYzqPdWDiITreCfVGBW'
 DEBUG = False
 ALLOWED_HOSTS = ['localhost', '127.0.0.1',
                  '.elasticbeanstalk.com', '.nlcscripts.org', 
-                'nlcscripts.org', 'www.nlcscripts.org']
+                'nlcscripts.org', 'www.nlcscripts.org', 'Nlcserver2025-env.elasticbeanstalk.com']
 
 
 # Application definition
@@ -96,7 +96,7 @@ else:
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': 'ebdb',
             'USER': 'master',
-            'PASSWORD': 'LearCenterCoders',
+            'PASSWORD': 'coders2025',
             'HOST': 'aa70q1acjlahr9.cqauetjzyrt7.us-west-1.rds.amazonaws.com',
             'PORT': '5432',
             'OPTIONS': {'connect_timeout': 2},
